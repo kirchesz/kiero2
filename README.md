@@ -17,13 +17,13 @@ Check [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md) for more details.
 - DirectX 11 (kiero_d3d11.hpp)
 - DirectX 12 (kiero_d3d12.hpp)
 - OpenGL (kiero_opengl.hpp)
- - [x] Windows
- - [ ] Linux
- - [ ] MacOS
+  - [x] Windows
+  - [ ] Linux
+  - [ ] MacOS
 - Vulkan (kiero_vulkan.hpp)
- - [x] Windows
- - [ ] Linux
- - [ ] MacOS
+  - [x] Windows
+  - [ ] Linux
+  - [ ] MacOS
 
 ## Requirements
 
