@@ -1,6 +1,7 @@
 #include <windows.h>
 #include "kiero.hpp"
 #include "kiero_vulkan.hpp"
+#include "kiero_intern.hpp"
 
 static const char* const k_vk_methods[] = {
   "vkCreateInstance",
