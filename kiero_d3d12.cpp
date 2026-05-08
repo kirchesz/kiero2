@@ -55,7 +55,7 @@ kiero::Error kiero::locate<kiero::Implementation_D3D12>(void* in, void* out)
   hresult = factory->EnumAdapters(0, &adapter);
   if (hresult != S_OK) {
     KIERO_DBG_MSG("EnumAdapters failed (%d)", hresult);
-    return Error_D3D12_EnumAdatersFailed;
+    return Error_D3D12_EnumAdaptersFailed;
   }
   KIERO_DEFER([&]() { adapter->Release(); });
 

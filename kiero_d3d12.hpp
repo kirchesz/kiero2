@@ -12,7 +12,7 @@ enum {
 
 enum {
   Error_D3D12_CreateDXGIFactoryFailed = Error_BaseIndex,
-  Error_D3D12_EnumAdatersFailed,
+  Error_D3D12_EnumAdaptersFailed,
   Error_D3D12_CreateDeviceFailed,
   Error_D3D12_CreateCommandQueueFailed,
   Error_D3D12_CreateCommandAllocatorFailed,
