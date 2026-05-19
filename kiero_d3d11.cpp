@@ -131,19 +131,19 @@ kiero::Error kiero::locate<kiero::Implementation_D3D11>(void* in, void* out)
 
   D3D11Output* output = (D3D11Output*)out;
 
-  for (auto vtable = (void**)swapchain; vtable; vtable++) {
+  for (auto vtable = *(void***)swapchain; vtable; vtable++) {
     auto ptr = *vtable;
     if (!ptr) break;
     output->swapchain_methods.push_back(ptr);
   }
 
-  for (auto vtable = (void**)device; vtable; vtable++) {
+  for (auto vtable = *(void***)device; vtable; vtable++) {
     auto ptr = *vtable;
     if (!ptr) break;
     output->device_methods.push_back(ptr);
   }
 
-  for (auto vtable = (void**)context; vtable; vtable++) {
+  for (auto vtable = *(void***)context; vtable; vtable++) {
     auto ptr = *vtable;
     if (!ptr) break;
     output->context_methods.push_back(ptr);
