@@ -156,31 +156,31 @@ kiero::Error kiero::locate<kiero::Implementation_D3D12>(void* in, void* out)
 
   D3D12Output* output = (D3D12Output*)out;
 
-  for (auto vtable = (void**)device; vtable; vtable++) {
+  for (auto vtable = *(void***)device; vtable; vtable++) {
     auto ptr = *vtable;
     if (!ptr) break;
     output->device_methods.push_back(ptr);
   }
 
-  for (auto vtable = (void**)command_queue; vtable; vtable++) {
+  for (auto vtable = *(void***)command_queue; vtable; vtable++) {
     auto ptr = *vtable;
     if (!ptr) break;
     output->command_queue_methods.push_back(ptr);
   }
 
-  for (auto vtable = (void**)command_allocator; vtable; vtable++) {
+  for (auto vtable = *(void***)command_allocator; vtable; vtable++) {
     auto ptr = *vtable;
     if (!ptr) break;
     output->command_allocator_methods.push_back(ptr);
   }
 
-  for (auto vtable = (void**)command_list; vtable; vtable++) {
+  for (auto vtable = *(void***)command_list; vtable; vtable++) {
     auto ptr = *vtable;
     if (!ptr) break;
     output->command_list_methods.push_back(ptr);
   }
 
-  for (auto vtable = (void**)swapchain; vtable; vtable++) {
+  for (auto vtable = *(void***)swapchain; vtable; vtable++) {
     auto ptr = *vtable;
     if (!ptr) break;
     output->swapchain_methods.push_back(ptr);

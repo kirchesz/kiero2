@@ -58,7 +58,7 @@ kiero::Error kiero::locate<kiero::Implementation_D3D9>(void* in, void* out)
 
   D3D9Output* output = (D3D9Output*)out;
 
-  for (auto vtable = (void**)device; vtable; vtable++) {
+  for (auto vtable = *(void***)device; vtable; vtable++) {
     auto ptr = *vtable;
     if (!ptr) break;
     output->device_methods.push_back(ptr);
