@@ -2,6 +2,10 @@
 #include "kiero_opengl.hpp"
 #include "kiero_intern.hpp"
 
+#if defined(KIERO_ON_LINUX)
+#include <dlfcn.h>
+#endif
+
 static const char* const k_gl_methods[] = {
   "glAccum", "glAlphaFunc", "glAreTexturesResident",
   "glArrayElement", "glBegin", "glBindTexture",
@@ -123,6 +127,21 @@ kiero::Error kiero::locate<kiero::Implementation_OpenGL>(void* in, void* out)
 
   for (auto name : k_gl_methods) {
     auto ptr = (void*)GetProcAddress(opengl_dll, name);
+    output->methods[name] = ptr;
+  }
+#elif defined(KIERO_ON_LINUX)
+  KIERO_UNUSED(in);
+  
+  auto opengl_so = dlopen("libGL.so", RTLD_LAZY | RTLD_NOLOAD);
+  if (!opengl_so) {
+    KIERO_DBG_MSG("libGL.so not loaded");
+    return Error_ModuleNotFound;
+  }
+
+  OpenGLOutput* output = (OpenGLOutput*)out;
+  
+  for (auto name : k_gl_methods) {
+    auto ptr = (void*)dlsym(opengl_so, name);
     output->methods[name] = ptr;
   }
 #else
