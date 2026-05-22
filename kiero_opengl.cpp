@@ -109,6 +109,12 @@ static const char* const k_gl_methods[] = {
   "glVertex4d", "glVertex4dv", "glVertex4f", "glVertex4fv",
   "glVertex4i", "glVertex4iv", "glVertex4s", "glVertex4sv",
   "glVertexPointer", "glViewport",
+
+#if defined(KIERO_ON_WINDOWS)
+  "wglSwapBuffers",
+#elif defined(KIERO_ON_LINUX)
+  "glXSwapBuffers",
+#endif
 };
 
 template <>
@@ -131,7 +137,7 @@ kiero::Error kiero::locate<kiero::Implementation_OpenGL>(void* in, void* out)
   }
 #elif defined(KIERO_ON_LINUX)
   KIERO_UNUSED(in);
-  
+
   auto opengl_so = dlopen("libGL.so", RTLD_LAZY | RTLD_NOLOAD);
   if (!opengl_so) {
     KIERO_DBG_MSG("libGL.so not loaded");
@@ -139,7 +145,7 @@ kiero::Error kiero::locate<kiero::Implementation_OpenGL>(void* in, void* out)
   }
 
   OpenGLOutput* output = (OpenGLOutput*)out;
-  
+
   for (auto name : k_gl_methods) {
     auto ptr = (void*)dlsym(opengl_so, name);
     output->methods[name] = ptr;
