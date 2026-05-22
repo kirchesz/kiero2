@@ -22,7 +22,7 @@ at runtime.
 - DirectX 12 (kiero_d3d12.hpp)
 - OpenGL (kiero_opengl.hpp)
   - [x] Windows
-  - [ ] Linux
+  - [x] Linux
   - [ ] MacOS
 - Vulkan (kiero_vulkan.hpp)
   - [x] Windows
