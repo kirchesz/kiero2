@@ -36,6 +36,53 @@ at runtime.
 - DirectX SDK (for DirectX backends)
 - Vulkan SDK (for Vulkan backends)
 
+## Installing
+
+### CMake
+
+`kiero` now provides a standard CMake target and works well with
+`FetchContent`:
+
+```cmake
+include(FetchContent)
+
+FetchContent_Declare(
+  kiero
+  GIT_REPOSITORY https://github.com/kirchesz/kiero2.git
+  GIT_TAG main
+)
+
+FetchContent_MakeAvailable(kiero)
+
+target_link_libraries(your_target PRIVATE kiero::kiero)
+```
+
+Available options:
+
+- `KIERO_BUILD_D3D9`
+- `KIERO_BUILD_D3D10`
+- `KIERO_BUILD_D3D11`
+- `KIERO_BUILD_D3D12`
+- `KIERO_BUILD_OPENGL`
+- `KIERO_BUILD_VULKAN`
+
+### Without CMake
+1. Download repository.
+2. Copy `kiero.hpp`, `kiero_intern.hpp`, `kiero_intern.cpp`, and the backend files you want to use into your project.
+
+For example, for DirectX 11:
+
+```text
+kiero.hpp
+kiero_intern.hpp
+kiero_intern.cpp
+kiero_d3d11.hpp
+kiero_d3d11.cpp
+```
+
+3. Then add those `.cpp` files to your build system and make sure your compiler
+can find the headers.
+
 ## Quick start
 
 ```cpp
