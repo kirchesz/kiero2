@@ -51,7 +51,7 @@ Error locate(void* in, void* out)
     " Did you forget about implementation?"
   );
 
-  return Error_Nil;
+  return Error_MethodNotFound;
 }
 
 } // namespace kiero
