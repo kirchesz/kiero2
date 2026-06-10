@@ -41,18 +41,7 @@ enum {
 };
 
 template<int Impl>
-Error locate(void* in, void* out)
-{
-  KIERO_UNUSED(in);
-  KIERO_UNUSED(out);
-
-  KIERO_ASSERT(
-    "This should be never be called!"
-    " Did you forget about implementation?"
-  );
-
-  return Error_Nil;
-}
+Error locate(void* in, void* out);
 
 } // namespace kiero
 
