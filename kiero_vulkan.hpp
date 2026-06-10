@@ -16,6 +16,9 @@ struct VulkanOutput {
   std::unordered_map<std::string, void*> methods;
 };
 
+template <>
+kiero::Error kiero::locate<kiero::Implementation_Vulkan>(void* in, void* out);
+
 } // namespace kiero
 
 #undef KIERO_IMPL_CURR_SLOT

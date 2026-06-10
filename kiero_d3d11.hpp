@@ -33,6 +33,9 @@ struct D3D11Output {
   std::vector<void*> context_methods;
 };
 
+template <>
+kiero::Error kiero::locate<kiero::Implementation_D3D11>(void* in, void* out);
+
 } // namespace kiero
 
 #undef KIERO_IMPL_CURR_SLOT
