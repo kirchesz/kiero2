@@ -28,6 +28,9 @@ struct D3D10Output {
   std::vector<void*> device_methods;
 };
 
+template <>
+kiero::Error kiero::locate<kiero::Implementation_D3D10>(void* in, void* out);
+
 } // namespace kiero
 
 #undef KIERO_IMPL_CURR_SLOT

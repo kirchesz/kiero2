@@ -16,6 +16,9 @@ struct OpenGLOutput {
   std::unordered_map<std::string, void*> methods;
 };
 
+template <>
+kiero::Error kiero::locate<kiero::Implementation_OpenGL>(void* in, void* out);
+
 } // namespace kiero
 
 #undef KIERO_IMPL_CURR_SLOT

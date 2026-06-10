@@ -47,6 +47,9 @@ struct D3D12Output {
   std::vector<void*> swapchain_methods;
 };
 
+template <>
+kiero::Error kiero::locate<kiero::Implementation_D3D12>(void* in, void* out);
+
 } // namespace kiero
 
 #undef KIERO_IMPL_CURR_SLOT
