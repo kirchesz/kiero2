@@ -57,6 +57,8 @@ FetchContent_MakeAvailable(kiero)
 target_link_libraries(your_target PRIVATE kiero::kiero)
 ```
 
+When you use `FetchContent`, CMake also generates `kiero.generated.hpp`. You must include this before your implementations.
+
 Available options:
 
 - `KIERO_BUILD_D3D9`
@@ -87,12 +89,13 @@ can find the headers.
 
 ```cpp
 #include "kiero.hpp"
-#include "kiero_d3d9.hpp" // order is important!
-                          // kiero.hpp must be included before any backend header
-                          // also order changes implementation indices
-                          // for example if you include kiero_d3d11.hpp before
-                          // kiero_d3d9.hpp, then kiero::Implementation_D3D9
-                          // will be 2 instead of 1
+#include <kiero.generated.h> // if you use CMake FetchContent
+#include "kiero_d3d9.hpp"    // order is important!
+                             // kiero.hpp must be included before any backend header
+                             // also order changes implementation indices
+                             // for example if you include kiero_d3d11.hpp before
+                             // kiero_d3d9.hpp, then kiero::Implementation_D3D9
+                             // will be 2 instead of 1
 
 kiero::D3D9Output d3d9;
 auto err = kiero::locate<kiero::Implementation_D3D9>(

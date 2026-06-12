@@ -38,32 +38,90 @@ set(kiero_public_headers
   kiero_vulkan.hpp
 )
 
+set(kiero_generated_includes "")
+
+if(KIERO_BUILD_D3D9)
+  string(APPEND kiero_generated_includes "#include \"kiero_d3d9.hpp\"\n")
+endif()
+
+if(KIERO_BUILD_D3D10)
+  string(APPEND kiero_generated_includes "#include \"kiero_d3d10.hpp\"\n")
+endif()
+
+if(KIERO_BUILD_D3D11)
+  string(APPEND kiero_generated_includes "#include \"kiero_d3d11.hpp\"\n")
+endif()
+
+if(KIERO_BUILD_D3D12)
+  string(APPEND kiero_generated_includes "#include \"kiero_d3d12.hpp\"\n")
+endif()
+
+if(KIERO_BUILD_OPENGL)
+  string(APPEND kiero_generated_includes "#include \"kiero_opengl.hpp\"\n")
+endif()
+
+if(KIERO_BUILD_VULKAN)
+  string(APPEND kiero_generated_includes "#include \"kiero_vulkan.hpp\"\n")
+endif()
+
+configure_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/cmake/kiero.generated.hpp.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/kiero.generated.hpp"
+  @ONLY
+)
+
 set(kiero_sources
   kiero_intern.cpp
 )
 
+set(kiero_impl_slot 0)
+
 if(KIERO_BUILD_D3D9)
   list(APPEND kiero_sources kiero_d3d9.cpp)
+  set_source_files_properties(kiero_d3d9.cpp PROPERTIES
+    COMPILE_DEFINITIONS "KIERO_IMPL_FIRST_SLOT=${kiero_impl_slot}"
+  )
+  math(EXPR kiero_impl_slot "${kiero_impl_slot} + 1")
 endif()
 
 if(KIERO_BUILD_D3D10)
   list(APPEND kiero_sources kiero_d3d10.cpp)
+  set_source_files_properties(kiero_d3d10.cpp PROPERTIES
+    COMPILE_DEFINITIONS "KIERO_IMPL_FIRST_SLOT=${kiero_impl_slot}"
+  )
+  math(EXPR kiero_impl_slot "${kiero_impl_slot} + 1")
 endif()
 
 if(KIERO_BUILD_D3D11)
   list(APPEND kiero_sources kiero_d3d11.cpp)
+  set_source_files_properties(kiero_d3d11.cpp PROPERTIES
+    COMPILE_DEFINITIONS "KIERO_IMPL_FIRST_SLOT=${kiero_impl_slot}"
+  )
+  math(EXPR kiero_impl_slot "${kiero_impl_slot} + 1")
 endif()
 
 if(KIERO_BUILD_D3D12)
   list(APPEND kiero_sources kiero_d3d12.cpp)
+  set_source_files_properties(kiero_d3d12.cpp PROPERTIES
+    COMPILE_DEFINITIONS "KIERO_IMPL_FIRST_SLOT=${kiero_impl_slot}"
+  )
+  math(EXPR kiero_impl_slot "${kiero_impl_slot} + 1")
 endif()
 
 if(KIERO_BUILD_OPENGL)
   list(APPEND kiero_sources kiero_opengl.cpp)
+  set_source_files_properties(kiero_opengl.cpp PROPERTIES
+    COMPILE_DEFINITIONS "KIERO_IMPL_FIRST_SLOT=${kiero_impl_slot}"
+  )
+  math(EXPR kiero_impl_slot "${kiero_impl_slot} + 1")
 endif()
 
 if(KIERO_BUILD_VULKAN)
   list(APPEND kiero_sources kiero_vulkan.cpp)
+  set_source_files_properties(kiero_vulkan.cpp PROPERTIES
+    COMPILE_DEFINITIONS "KIERO_IMPL_FIRST_SLOT=${kiero_impl_slot}"
+  )
+  math(EXPR kiero_impl_slot "${kiero_impl_slot} + 1")
 endif()
 
 add_library(kiero ${kiero_sources} ${kiero_public_headers})
@@ -79,6 +137,7 @@ set_target_properties(kiero PROPERTIES
 target_include_directories(kiero
   PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
@@ -111,6 +170,11 @@ if(KIERO_INSTALL)
 
   install(
     FILES ${kiero_public_headers}
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+  )
+
+  install(
+    FILES "${CMAKE_CURRENT_BINARY_DIR}/kiero.generated.hpp"
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
   )
 

@@ -63,4 +63,12 @@ Error locate(void* in, void* out)
 #define KIERO_IMPL_CURR_SLOT kiero::Implementation_Nil
 #define KIERO_IMPL_FREE_SLOT (KIERO_IMPL_CURR_SLOT + 1)
 
+// You can use this for override first index
+// This is necessary, for example, to save the index
+// when building the static library (see CMakeLists.txt).
+#ifdef KIERO_IMPL_FIRST_SLOT
+# undef KIERO_IMPL_CURR_SLOT
+# define KIERO_IMPL_CURR_SLOT KIERO_IMPL_FIRST_SLOT
+#endif
+
 #endif // KIERO_HPP
