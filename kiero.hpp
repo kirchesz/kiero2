@@ -56,7 +56,7 @@ Error locate(void* in, void* out)
 } // namespace kiero
 
 // In every implementation header
-// you MUST do undef for KIERO_IMPL_COUNT_CURR
+// you MUST do undef for KIERO_IMPL_CURR_SLOT
 // and set this to your new implementation index this way:
 //#undef KIERO_IMPL_CURR_SLOT
 //#define KIERO_IMPL_CURR_SLOT kiero::Implementation_MyRender
