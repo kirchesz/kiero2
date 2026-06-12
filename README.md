@@ -57,7 +57,10 @@ FetchContent_MakeAvailable(kiero)
 target_link_libraries(your_target PRIVATE kiero::kiero)
 ```
 
-When you use `FetchContent`, CMake also generates `kiero.generated.hpp`. You must include this before your implementations.
+> [!WARNING]
+> When you use `FetchContent`, CMake also generates `kiero.generated.hpp`.
+>
+> You must include this after `kiero.hpp`.
 
 Available options:
 
